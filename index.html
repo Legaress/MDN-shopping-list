@@ -31,7 +31,41 @@
     </ul>
 
     <script>
+      const list = document.querySelector('ul');
+      const input = document.querySelector('#item');
+      const submitButton = document.querySelector('button');
 
+      const handleButtonClick = () => {
+        const textInput = input.value.trim();
+        if (!textInput) return;
+
+        const li = document.createElement('li');
+        const span = document.createElement('span');
+        const button = document.createElement('button');
+        
+        button.classList.add('delete');
+        span.textContent = textInput;
+        button.textContent = 'Delete';
+        li.append(span, button);
+        list.append(li);
+        
+        input.value = '';
+      }
+
+      const handleDeleteButtonClick = (e) => {
+        if (e.target.classList.contains('delete')) {
+          e.target.closest('li').remove();
+        }
+      }
+
+      submitButton.addEventListener('click', handleButtonClick);
+      list.addEventListener('click', handleDeleteButtonClick);
+      
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          handleButtonClick();
+        }
+      });
     </script>
   </body>
 </html>
